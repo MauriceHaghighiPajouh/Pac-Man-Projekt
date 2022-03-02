@@ -74,7 +74,7 @@ public class model extends JPanel implements ActionListener {
 
     }
 
-
+s
 
     @Override
     public void actionPerformed(ActionEvent e) {
