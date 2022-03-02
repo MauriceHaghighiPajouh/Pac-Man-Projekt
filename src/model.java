@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 
 
 public class model extends JPanel implements ActionListener {
-    private Dimension d;
+    private Dimension d; //dimension (x = x-achse) (y= y-achse)
     private final Font smallFont = new Font("Arial", Font.BOLD, 14);
     private boolean inGame = false;
     private boolean sterben = false;
@@ -31,11 +31,11 @@ public class model extends JPanel implements ActionListener {
 
     private final int validSpeeds[] = {1, 2, 3, 4, 6, 8};
     private int maxSpeed = 6;
-    private int currentSpeed = 3;
+    private int jetzigeGeschwindigkeit = 3;
     private int[] screenData;
     private Timer timer;
 
-    private final int leveData[] = {
+    private final int levelData[] = {
             19, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 22,
             17, 16, 16, 16, 16, 24, 16, 16, 16, 16, 16, 16, 16, 16, 20,
             25, 24, 24, 24, 28, 0, 17, 16, 16, 16, 16, 16, 16, 16, 20,
@@ -92,10 +92,90 @@ public class model extends JPanel implements ActionListener {
     }
 
     private void initSpiel() {
-        leben=3;
-        punktestand=0;
+        leben = 3;
+        punktestand = 0;
+        initLevel();
+        ANZAHL_GEISTER = 6;
+        jetzigeGeschwindigkeit = 3;
+
 
     }
+
+    private void initLevel() {
+        int i;
+        for (i = 0; i < ANZAHL_BLOCKS * ANZAHL_BLOCKS; i++) {
+            screenData[i] = levelData[i];
+        }
+    }
+
+    private void spielStarten(Graphics2D g2d){
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+    private void weiterLevel() {
+        int dx = 1;
+        int random;
+
+        for (int i = 0; i < ANZAHL_GEISTER; i++) {
+            ghost_y[i] = 4 * BLOCK_GROESSE;
+            ghost_x[i] = 4 * BLOCK_GROESSE;
+            ghost_dy[i] = 0;
+            ghost_dx[i] = dx;
+            dx = -dx;
+            random = (int) (Math.random() * (jetzigeGeschwindigkeit + 1));
+
+            if (random > jetzigeGeschwindigkeit) {
+                random = jetzigeGeschwindigkeit;
+            }
+            ghostSpeed[i] = validSpeeds[random];
+        }
+
+        pacman_x = 1 * BLOCK_GROESSE;
+        pacman_y = 1 * BLOCK_GROESSE;
+        pacmand_x = 0;
+        pacmand_y = 0;
+        req_dy=0;
+        sterben=false;
+
+    }
+
+    public void grafikErzeugen(Graphics g){
+        super.paintComponent(g);
+
+        Graphics2D g2d= (Graphics2D) g;
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0,0,d.width,d.height);
+
+        drawMaze(g2d);
+        drawScore(g2d);
+
+        if (inGame){
+            spielStarten(g2d);
+        }else{
+            showHauptMenue(g2d);
+        }
+        Toolkit.getDefaultToolkit().sync();
+
+    }
+
+
+
+
+
+
+
+
+
 
     class TAdapter extends KeyAdapter {
         public void tastatur(KeyEvent e) {
