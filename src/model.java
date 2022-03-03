@@ -109,7 +109,24 @@ public class model extends JPanel implements ActionListener {
     }
 
     private void spielStarten(Graphics2D g2d){
+        if (sterben){
+            tod();
+        }else {
+            bewegePac();
+            drawPac();
+            bewegeGhosts();
+            checkMaze();
 
+        }
+
+    }
+
+    public void bewegePac(){
+        int position;
+        int ch;
+        if (pacman_x%BLOCK_GROESSE==0&&pacman_y%BLOCK_GROESSE==0){
+            position=
+        }
     }
 
 
