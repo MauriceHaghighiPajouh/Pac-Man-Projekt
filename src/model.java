@@ -115,7 +115,7 @@ public class model extends JPanel implements ActionListener {
             bewegePac();
             drawPac();
             bewegeGhosts();
-            checkMaze();
+            checkMaze
 
         }
 
