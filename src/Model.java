@@ -113,7 +113,7 @@ public class Model extends JPanel implements ActionListener {  //klasse erweiter
 
     private void showIntroScreen(Graphics2D g2d) {        // Hauptmenü
 
-        String start = "Projekt der BOS 13- Willkommen bei Pacman! ( Leertaste zum Starten)";
+        String start = "Pacman der BOS-13";
         g2d.setColor(Color.yellow);        // farbe = gelb (vorgefertigt)
         g2d.drawString(start, (SCREEN_SIZE)/4, 150);       // beim starten wird der string gezeichnet
     }
@@ -143,7 +143,7 @@ public class Model extends JPanel implements ActionListener {  //klasse erweiter
             i++;
         }
 
-        if (finished) {
+        if (finished) {         //bei beendung des spiels wird der pktstand erhöht und die geister werden mehr und schneller
 
             score += 50;
 
@@ -159,7 +159,7 @@ public class Model extends JPanel implements ActionListener {  //klasse erweiter
         }
     }
 
-    private void death() {
+    private void death() {                  // wenn die leben auf 0 fallen, wird das spiel beendet. danach neu gestartet
 
         lives--;
 
@@ -170,7 +170,7 @@ public class Model extends JPanel implements ActionListener {  //klasse erweiter
         continueLevel();
     }
 
-    private void moveGhosts(Graphics2D g2d) {          // zetcode
+    private void moveGhosts(Graphics2D g2d) {          // zetcode mit Schema für Game-physics
 
         int pos;
         int count;
@@ -244,9 +244,9 @@ public class Model extends JPanel implements ActionListener {  //klasse erweiter
 
     private void drawGhost(Graphics2D g2d, int x, int y) {
         g2d.drawImage(ghost, x, y, this);
-    }
+    } //Funktion zum zeichnen der geister
 
-    private void movePacman() {
+    private void movePacman() {            // zetcode für gamephysics
 
         int pos;
         short ch;
@@ -296,7 +296,7 @@ public class Model extends JPanel implements ActionListener {  //klasse erweiter
         }
     }
 
-    private void drawMaze(Graphics2D g2d) {
+    private void drawMaze(Graphics2D g2d) {  // Zeichnen der weißen punkte
 
         short i = 0;
         int x, y;
@@ -339,7 +339,7 @@ public class Model extends JPanel implements ActionListener {  //klasse erweiter
         }
     }
 
-    private void initGame() {
+    private void initGame() {        // simple spiel initialisierung, leben, punkte etc. werden festgelegt
 
         lives = 3;
         score = 0;
@@ -348,7 +348,7 @@ public class Model extends JPanel implements ActionListener {  //klasse erweiter
         currentSpeed = 3;
     }
 
-    private void initLevel() {
+    private void initLevel() {                  // level wird erschaffen mit einem loop
 
         int i;
         for (i = 0; i < N_BLOCKS * N_BLOCKS; i++) {
@@ -381,15 +381,15 @@ public class Model extends JPanel implements ActionListener {  //klasse erweiter
 
         pacman_x = 7 * BLOCK_SIZE;  //start position
         pacman_y = 11 * BLOCK_SIZE;
-        pacmand_x = 0;	//reset direction move
+        pacmand_x = 0;
         pacmand_y = 0;
         req_dx = 0;		// reset direction controls
         req_dy = 0;
-        dying = false;
+        dying = false;        // pacman lebt am anfang des spiels, war notwendig weil sonst kein start möglich???
     }
 
 
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {   // zeichnen der punkte und wände
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
@@ -411,7 +411,7 @@ public class Model extends JPanel implements ActionListener {  //klasse erweiter
     }
 
 
-    //controls
+    //Festlegen der Steuerung über Maustasten
     class TAdapter extends KeyAdapter {
 
         @Override
